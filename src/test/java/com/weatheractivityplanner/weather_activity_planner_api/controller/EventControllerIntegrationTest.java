@@ -11,6 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.time.LocalDateTime;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,7 +20,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
-import tools.jackson.core.JacksonException;
 import tools.jackson.databind.ObjectMapper;
 import com.weatheractivityplanner.weather_activity_planner_api.dto.event.EventRequestDTO;
 import com.weatheractivityplanner.weather_activity_planner_api.entity.Event;
@@ -39,6 +39,11 @@ public class EventControllerIntegrationTest {
 
     @Autowired
     private EventRepository eventRepository;
+
+    @BeforeEach 
+    void setUp() {
+        eventRepository.deleteAll();
+    }
 
     @Test
     void shouldCreateEventSuccessfully() throws Exception {

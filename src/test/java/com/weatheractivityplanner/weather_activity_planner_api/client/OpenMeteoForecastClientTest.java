@@ -96,6 +96,19 @@ public class OpenMeteoForecastClientTest {
                     throw new java.io.IOException("Connection failed");
                 });
 
+                WeatherProviderException exception = assertThrows(
+                WeatherProviderException.class,
+                        () -> client.getForecast(
+                                18.4861,
+                                -69.9312,
+                                "America/Santo_Domingo"));
+
+                assertEquals(
+                        "Could not connect to weather provider",
+                        exception.getMessage());
+
+                server.verify();
+
     }
 
     @Test 
